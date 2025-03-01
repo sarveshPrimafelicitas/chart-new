@@ -1,0 +1,237 @@
+<div class="row" *ngIf="resdata">
+  <div class="menuBoxdpp" id="dppmenu">
+    <div class="menuhead">
+      <button (click)="dppmenuopan()"><i class="fa-light fa-xmark"></i></button>
+      <img
+        [src]="
+          resdata?.brand_level_settings?.logo
+            ? baseaddress + '/uploads/' + resdata?.brand_level_settings?.logo
+            : 'assets/images/passportImages/dppmenulogo.svg'
+        "
+        src=""
+      />
+    </div>
+    <div class="menudppbx">
+      <ul>
+        <li>
+          <button
+            [disabled]="
+              resdata?.dpp_settings?.journey_level.journeystatus === false
+            "
+            routerLink="iotex-bc/productJourney"
+          >
+            <img src="/assets/images/passportImages/jurneyglob-dark.svg" />
+            Journey
+          </button>
+        </li>
+        <li>
+          <button [disabled]="resdata?.dpp_settings?.impact === false">
+            <img src="/assets/images/passportImages/impectleaf-dark.svg" />
+            Impact
+          </button>
+        </li>
+        <li>
+          <button
+            [disabled]="resdata?.dpp_settings?.care === false"
+            routerLink="iotex-bc/care"
+          >
+            <img src="/assets/images/passportImages/careshrt-dark.svg" /> Care
+          </button>
+        </li>
+        <li>
+          <button
+            [disabled]="resdata?.dpp_settings?.circularity === false"
+            routerLink="iotex-bc/circularity "
+          >
+            <img src="/assets/images/passportImages/circularity-dark.svg" />
+            Circularity
+          </button>
+        </li>
+        <li>
+          <button routerLink="iotex-bc/aboutaware">
+            <img src="/assets/images/passportImages/awarelogo-dark.svg" /> About
+            Aware™️
+          </button>
+        </li>
+      </ul>
+
+      <div class="extrainksdpp">
+        <p>download your virtual id</p>
+        <p>SHARE YOUR FEEDBACK</p>
+        <p>view on blockchain</p>
+      </div>
+    </div>
+  </div>
+  <div
+    class="col-xl-12 passportMain"
+    [ngStyle]="{
+      'background-color': resdata?.dpp_settings?.header_background_color
+    }"
+  >
+    <div class="header">
+      <button disabled (click)="dppmenuopan()">
+        <i class="fa-sharp fa-regular fa-bars"></i>
+      </button>
+      <img
+        [src]="
+          resdata?.brand_level_settings?.logo
+            ? baseaddress + '/uploads/' + resdata?.brand_level_settings?.logo
+            : resdata?.kyc_obj?.company_logo
+            ? baseaddress + '/uploads/' + resdata?.kyc_obj?.company_logo
+            : '/assets/images/passportImages/aware-white.svg'
+        "
+        alt=""
+      />
+      <!-- <img [src]="resdata?.brand_level_settings?.logo ? baseaddress+'/uploads/'+resdata?.brand_level_settings?.logo : finalbrand?.kyc_obj?.company_logo ?baseaddress+'/uploads/'+finalbrand?.kyc_obj?.company_logo :'/assets/images/passportImages/aware-whitenew.png'"
+                alt="" srcset=""> -->
+    </div>
+    <div class="productnameBox">
+      <p>virtual ID</p>
+      <h1 *ngIf="resdata?.status === true">
+        <a
+          [class.disabled]="false"
+          class="text-decoration-none"
+          target="_blank"
+          >{{
+            resdata?.brand_level_settings?.name
+              ? resdata?.brand_level_settings?.name
+              : resdata?.kyc_obj?.company_name
+              ? resdata?.kyc_obj?.company_name
+              : ""
+          }}</a
+        >
+      </h1>
+
+      <!-- <h1 *ngIf="resdata?.status === false"><a [class.disabled]="false" class="text-decoration-none"
+                    target="_blank">{{resdata?.brand_level_settings?.name ? resdata?.brand_level_settings?.name:
+                    resdata?.kyc_obj?.company_name ? resdata?.kyc_obj?.company_name  :''}}</a></h1> -->
+
+      <h1 *ngIf="resdata?.status === false">
+        <a
+          [class.disabled]="false"
+          class="text-decoration-none"
+          target="_blank"
+        >
+          {{
+            resdata?.brand_name ||
+              resdata?.brand_level_settings?.name ||
+              resdata?.kyc_obj?.company_name ||
+              ""
+          }}
+        </a>
+      </h1>
+
+      <h3>
+        {{ resdata?.products_line_details?.description }},
+        {{ resdata?.products_line_details?.color }}
+      </h3>
+    </div>
+    <div class="row">
+      <div class="col-xl-12 newpx16 p-0">
+        <div class="passportProduct">
+          <ng-container *ngIf="resdata?.status === true">
+            <div
+              class="productBox"
+              *ngIf="resdata"
+              [ngClass]="{ 'productImage fetched': virtualidfound === true }"
+            >
+              <div class="loading loadtxt" *ngIf="virtualidfound">
+                <!-- <div class=" spinner-border fs-6"></div> -->
+                <img
+                  src="/assets/images/passportImages/loaderDPP.png"
+                  class="loadernew"
+                />
+                <div class="fliptext">
+                  <span class="text1"
+                    >Almost there, setting up things for you...</span
+                  >
+                  <span class="text2"
+                    >Path to sustainable fashion is loading...</span
+                  >
+                  <span class="text3">Adding the final touch..</span>
+                </div>
+              </div>
+
+              <div class="validatelabel" *ngIf="!virtualidfound">
+                <img src="/assets/images/passportImages/awarelogo.svg" />
+                validated by <span>aware<sup>TM</sup></span>
+              </div>
+              <!-- <img #myImage
+                                [src]="resdata?.product_image ? baseaddress+'/uploads/'+resdata?.product_image :'../../../assets/images/png/dppproductempty.png'"
+                                alt=""> -->
+              
+            </div>
+
+          </ng-container>
+
+          <ng-container *ngIf="resdata?.status === false">
+            <div class="productBox productImage" *ngIf="resdata">
+              <div class="loading" *ngIf="journeynotfound">
+                <!-- <div class=" spinner-border fs-6"></div> -->
+                <img
+                  src="/assets/images/passportImages/loaderDPP.png"
+                  class="loadernew"
+                />
+              </div>
+
+              <div
+                class="loading w-auto d-flex gap-2 px-4"
+                *ngIf="!journeynotfound"
+              >
+                <!-- <div class=" spinner-border fs-6"></div> -->
+                <img
+                  src="/assets/images/passportImages/loaderDPP.png"
+                  class="loadernew"
+                />
+
+                Intransit
+              </div>
+              <img
+                #myImage
+                [src]="
+                  resdata?.product_image
+                    ? baseaddress + '/uploads/' + resdata?.product_image
+                    : '../../../assets/images/png/dppproductempty.png'
+                "
+                alt=""
+              />
+            </div>
+          </ng-container>
+        </div>
+        <div
+          class="passport-item3"
+          style="
+            font-family: suisse_intllight !important;
+            font-size: 13px !important;
+          "
+        >
+          <div
+            class="order-number3"
+            style="
+              font-family: suisse_intllight !important;
+              font-size: 13px !important;
+            "
+          >
+            Order Number<span class="span1"> - </span
+            ><span class="span2">{{
+              resdata?.products_line_details?.order_number
+            }}</span>
+          </div>
+          <div
+            class="item-number3 mb-0"
+            style="
+              font-family: suisse_intllight !important;
+              font-size: 13px !important;
+            "
+          >
+            Item Number<span class="span1"> - </span
+            ><span class="span2">{{
+              resdata?.products_line_details?.item_number
+            }}</span>
+          </div>
+          <!-- <br /> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

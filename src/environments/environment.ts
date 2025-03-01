@@ -3,7 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  website_base: `https://dev.wearaware.co/`,
+  iotex_address: `https://testnet.iotexscan.io`,
+  sub_graph:
+    'https://devgraphql.wearaware.co/subgraphs/name/prima/aware-v1-subgraph',
+  domain: 'https://devapi.wearaware.co',
 };
 
 /*
